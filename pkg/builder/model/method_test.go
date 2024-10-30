@@ -8,8 +8,8 @@ import (
 	"go/types"
 	"testing"
 
-	"github.com/reedom/convergen/pkg/builder/model"
-	"github.com/reedom/convergen/pkg/option"
+	"github.com/qwenode/convergen/pkg/builder/model"
+	"github.com/qwenode/convergen/pkg/option"
 	"github.com/stretchr/testify/require"
 )
 
@@ -24,11 +24,11 @@ func loadSrc(t *testing.T, src string) (*ast.File, *token.FileSet, *types.Packag
 	return file, fset, pkg
 }
 
-//func getCodeText(t *testing.T, fset *token.FileSet, file *ast.File) string {
+// func getCodeText(t *testing.T, fset *token.FileSet, file *ast.File) string {
 //	buf := bytes.Buffer{}
 //	require.Nil(t, printer.Fprint(&buf, fset, file))
 //	return buf.String()
-//}
+// }
 
 func TestMethodEntry(t *testing.T) {
 	src := `package main
@@ -46,7 +46,7 @@ func main() {}`
 	_, _, pkg := loadSrc(t, src)
 
 	scope := pkg.Scope()
-	//imports := util.NewImportNames(scope)
+	// imports := util.NewImportNames(scope)
 
 	obj := scope.Lookup("MyType")
 	method1, _, _ := types.LookupFieldOrMethod(obj.Type(), true, pkg, "Test1")
@@ -72,20 +72,20 @@ func main() {}`
 		if method.Name() == "" {
 			t.Errorf("Method name is empty")
 		}
-		//if method.Recv() == nil {
+		// if method.Recv() == nil {
 		//	t.Errorf("Receiver type is nil")
-		//}
-		//if len(method.Args()) == 0 {
+		// }
+		// if len(method.Args()) == 0 {
 		//	t.Errorf("Argument types are empty")
-		//}
-		//if len(method.Results()) == 0 {
+		// }
+		// if len(method.Results()) == 0 {
 		//	t.Errorf("Result types are empty")
-		//}
-		//if method.SrcVar() == nil {
+		// }
+		// if method.SrcVar() == nil {
 		//	t.Errorf("SrcVar is nil")
-		//}
-		//if method.DstVar() == nil {
+		// }
+		// if method.DstVar() == nil {
 		//	t.Errorf("DstVar is nil")
-		//}
+		// }
 	}
 }

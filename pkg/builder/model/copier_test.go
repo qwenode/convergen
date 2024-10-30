@@ -4,7 +4,7 @@ import (
 	"go/types"
 	"testing"
 
-	"github.com/reedom/convergen/pkg/builder/model"
+	"github.com/qwenode/convergen/pkg/builder/model"
 )
 
 func TestMarkHandle(t *testing.T) {

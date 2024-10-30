@@ -5,10 +5,10 @@ import (
 	"go/token"
 	"go/types"
 
-	bmodel "github.com/reedom/convergen/pkg/builder/model"
-	gmodel "github.com/reedom/convergen/pkg/generator/model"
-	"github.com/reedom/convergen/pkg/logger"
-	"github.com/reedom/convergen/pkg/util"
+	bmodel "github.com/qwenode/convergen/pkg/builder/model"
+	gmodel "github.com/qwenode/convergen/pkg/generator/model"
+	"github.com/qwenode/convergen/pkg/logger"
+	"github.com/qwenode/convergen/pkg/util"
 	"golang.org/x/tools/go/packages"
 )
 
@@ -65,10 +65,14 @@ func (p *FunctionBuilder) CreateFunction(m *bmodel.MethodEntry) (*gmodel.Functio
 		return nil, logger.Errorf("%v: dst type is not defined. make sure to be imported", p.fset.Position(dst.Pos()))
 	}
 	if !util.IsStructType(util.DerefPtr(src.Type())) {
-		return nil, logger.Errorf("%v: src type should be a struct but %v", p.fset.Position(dst.Pos()), src.Type().Underlying().String())
+		return nil, logger.Errorf(
+			"%v: src type should be a struct but %v", p.fset.Position(dst.Pos()), src.Type().Underlying().String(),
+		)
 	}
 	if !util.IsStructType(util.DerefPtr(dst.Type())) {
-		return nil, logger.Errorf("%v: dst type should be a struct but %v", p.fset.Position(dst.Pos()), dst.Type().Underlying().String())
+		return nil, logger.Errorf(
+			"%v: dst type should be a struct but %v", p.fset.Position(dst.Pos()), dst.Type().Underlying().String(),
+		)
 	}
 
 	srcDefName := "src"
@@ -82,7 +86,9 @@ func (p *FunctionBuilder) CreateFunction(m *bmodel.MethodEntry) (*gmodel.Functio
 
 	if m.Opts.Receiver != "" {
 		if srcVar.External {
-			return nil, logger.Errorf("%v: an external package type cannot be a receiver", p.fset.Position(m.Method.Pos()))
+			return nil, logger.Errorf(
+				"%v: an external package type cannot be a receiver", p.fset.Position(m.Method.Pos()),
+			)
 		}
 		srcVar.Name = m.Opts.Receiver
 	}

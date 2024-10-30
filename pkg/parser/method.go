@@ -7,10 +7,10 @@ import (
 	"os"
 	"regexp"
 
-	"github.com/reedom/convergen/pkg/builder/model"
-	"github.com/reedom/convergen/pkg/logger"
-	"github.com/reedom/convergen/pkg/option"
-	"github.com/reedom/convergen/pkg/util"
+	"github.com/qwenode/convergen/pkg/builder/model"
+	"github.com/qwenode/convergen/pkg/logger"
+	"github.com/qwenode/convergen/pkg/option"
+	"github.com/qwenode/convergen/pkg/util"
 )
 
 var (
@@ -50,10 +50,14 @@ func (p *Parser) parseMethod(method types.Object, opts option.Options) (*model.M
 	}
 
 	if signature.Params().Len() == 0 {
-		return nil, logger.Errorf(`%v: method must have one or more arguments as copy source`, p.fset.Position(method.Pos()))
+		return nil, logger.Errorf(
+			`%v: method must have one or more arguments as copy source`, p.fset.Position(method.Pos()),
+		)
 	}
 	if signature.Results().Len() == 0 {
-		return nil, logger.Errorf(`%v: method must have one or more return values as copy destination`, p.fset.Position(method.Pos()))
+		return nil, logger.Errorf(
+			`%v: method must have one or more return values as copy destination`, p.fset.Position(method.Pos()),
+		)
 	}
 
 	docComment, cleanUp := util.GetDocCommentOn(p.file, method)
@@ -66,8 +70,8 @@ func (p *Parser) parseMethod(method types.Object, opts option.Options) (*model.M
 	cleanUp()
 
 	return &model.MethodEntry{
-		Method:     method,
-		Opts:       opts,
+		Method: method,
+		Opts: opts,
 		DocComment: docComment,
 	}, nil
 }

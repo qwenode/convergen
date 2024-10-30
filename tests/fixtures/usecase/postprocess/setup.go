@@ -3,12 +3,12 @@
 package postprocess
 
 import (
-	"github.com/reedom/convergen/tests/fixtures/data/domain"
-	"github.com/reedom/convergen/tests/fixtures/data/model"
-	_ "github.com/reedom/convergen/tests/fixtures/usecase/postprocess/local"
+	"github.com/qwenode/convergen/tests/fixtures/data/domain"
+	"github.com/qwenode/convergen/tests/fixtures/data/model"
+	_ "github.com/qwenode/convergen/tests/fixtures/usecase/postprocess/local"
 )
 
-//go:generate go run github.com/reedom/convergen
+//go:generate go run github.com/qwenode/convergen
 type Convergen interface {
 	// :preprocess PreDomainToModel
 	// :postprocess PostDomainToModel

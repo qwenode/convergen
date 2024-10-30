@@ -5,8 +5,8 @@ import (
 	"go/types"
 	"testing"
 
-	"github.com/reedom/convergen/pkg/builder/model"
-	"github.com/reedom/convergen/pkg/option"
+	"github.com/qwenode/convergen/pkg/builder/model"
+	"github.com/qwenode/convergen/pkg/option"
 	"github.com/stretchr/testify/assert"
 )
 

@@ -4,7 +4,7 @@ import (
 	"go/types"
 	"testing"
 
-	"github.com/reedom/convergen/pkg/util"
+	"github.com/qwenode/convergen/pkg/util"
 	"github.com/stretchr/testify/assert"
 )
 

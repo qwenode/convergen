@@ -6,11 +6,11 @@ import (
 	"go/token"
 	"go/types"
 
-	bmodel "github.com/reedom/convergen/pkg/builder/model"
-	gmodel "github.com/reedom/convergen/pkg/generator/model"
-	"github.com/reedom/convergen/pkg/logger"
-	"github.com/reedom/convergen/pkg/option"
-	"github.com/reedom/convergen/pkg/util"
+	bmodel "github.com/qwenode/convergen/pkg/builder/model"
+	gmodel "github.com/qwenode/convergen/pkg/generator/model"
+	"github.com/qwenode/convergen/pkg/logger"
+	"github.com/qwenode/convergen/pkg/option"
+	"github.com/qwenode/convergen/pkg/util"
 	"golang.org/x/tools/go/packages"
 )
 
@@ -78,18 +78,20 @@ func (b *assignmentBuilder) dispatch(lhs, rhs bmodel.Node) ([]gmodel.Assignment,
 func (b *assignmentBuilder) structToStruct(lhsStruct, rhsStruct bmodel.Node) ([]gmodel.Assignment, error) {
 	var err error
 	var assignments []gmodel.Assignment
-	bmodel.IterateStructFields(lhsStruct, func(lhsField bmodel.Node) (done bool) {
-		if !b.isStructFieldAccessible(lhsStruct, lhsField.ObjName()) {
-			return
-		}
+	bmodel.IterateStructFields(
+		lhsStruct, func(lhsField bmodel.Node) (done bool) {
+			if !b.isStructFieldAccessible(lhsStruct, lhsField.ObjName()) {
+				return
+			}
 
-		var a gmodel.Assignment
-		a, err = b.matchStructFieldAndStruct(lhsField, rhsStruct)
-		if err == nil && a != nil {
-			assignments = append(assignments, a)
-		}
-		return
-	})
+			var a gmodel.Assignment
+			a, err = b.matchStructFieldAndStruct(lhsField, rhsStruct)
+			if err == nil && a != nil {
+				assignments = append(assignments, a)
+			}
+			return
+		},
+	)
 	return assignments, err
 }
 
@@ -133,7 +135,9 @@ func (b *assignmentBuilder) matchStructFieldAndStruct(lhs bmodel.Node, rhs bmode
 // If a match is found, returns an Assignment that represents the field assignment.
 // If no match is found, returns a NoMatchField or SkipField if the field is to be skipped
 // based on the options set in the AssignmentBuilder.
-func (b *assignmentBuilder) structFieldAndStructGettersAndFields(lhs bmodel.Node, rhsStruct bmodel.Node) (gmodel.Assignment, error) {
+func (b *assignmentBuilder) structFieldAndStructGettersAndFields(
+	lhs bmodel.Node, rhsStruct bmodel.Node,
+) (gmodel.Assignment, error) {
 	opts := b.opts
 	methodPosStr := b.fset.Position(b.methodPos)
 	lhsExpr := lhs.AssignExpr()
@@ -204,7 +208,9 @@ func (b *assignmentBuilder) structFieldAndStructGettersAndFields(lhs bmodel.Node
 
 // createWithConverter creates an assignment using the given field converter.
 // It resolves the source field, applies the converter, and creates an assignment from the result.
-func (b *assignmentBuilder) createWithConverter(lhs, rhs bmodel.Node, converter *option.FieldConverter) (gmodel.Assignment, error) {
+func (b *assignmentBuilder) createWithConverter(
+	lhs, rhs bmodel.Node, converter *option.FieldConverter,
+) (gmodel.Assignment, error) {
 	converterNode := func() bmodel.Node {
 		root := rhs
 		for ; root.Parent() != nil; root = root.Parent() {
@@ -249,7 +255,9 @@ func (b *assignmentBuilder) createWithConverter(lhs, rhs bmodel.Node, converter 
 // If a match is found, it returns a SimpleField with the lhs and rhs expressions and
 // the returns error flag.
 // If a match is not found, it returns a NoMatchField with the lhs expression.
-func (b *assignmentBuilder) createWithMapper(lhs, rhs bmodel.Node, mapper *option.NameMatcher) (gmodel.Assignment, error) {
+func (b *assignmentBuilder) createWithMapper(
+	lhs, rhs bmodel.Node, mapper *option.NameMatcher,
+) (gmodel.Assignment, error) {
 	mappedNode := func() bmodel.Node {
 		root := rhs
 		for ; root.Parent() != nil; root = root.Parent() {
@@ -298,8 +306,10 @@ func (b *assignmentBuilder) castNode(lhsType types.Type, rhs bmodel.Node) (c bmo
 	if b.opts.Typecast && types.ConvertibleTo(rhs.ExprType(), lhsType) {
 		c, ok = bmodel.NewTypecast(b.pkg.Types.Scope(), b.imports, lhsType, rhs)
 		if !ok {
-			logger.Warnf("%v: typecast for %v is not implemented(yet) for %v",
-				b.fset.Position(b.methodPos), b.imports.TypeName(lhsType), rhs.AssignExpr())
+			logger.Warnf(
+				"%v: typecast for %v is not implemented(yet) for %v",
+				b.fset.Position(b.methodPos), b.imports.TypeName(lhsType), rhs.AssignExpr(),
+			)
 		}
 		return
 	}

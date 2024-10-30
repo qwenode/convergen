@@ -1,4 +1,4 @@
-module github.com/reedom/convergen
+module github.com/qwenode/convergen
 
 go 1.19
 

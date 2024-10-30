@@ -38,13 +38,13 @@ Installation and Introduction
 To use Convergen as a Go generator, install the module in your Go project directory via go get:
 
 ```shell
-$ go get -u github.com/reedom/convergen@latest
+$ go get -u github.com/qwenode/convergen@latest
 ```
 
 Then, write a generator as follows:
 
 ```go
-//go:generate go run github.com/reedom/convergen@v0.6.1
+//go:generate go run github.com/qwenode/convergen@v0.6.1
 type Convergen interface {
     …
 }
@@ -55,7 +55,7 @@ type Convergen interface {
 To use Convergen as a CLI command, install the command via go install:
 
 ```shell
-$ go install github.com/reedom/convergen@latest
+$ go install github.com/qwenode/convergen@latest
 ```
 
 You can then generate code by calling:

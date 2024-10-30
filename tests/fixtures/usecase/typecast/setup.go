@@ -3,11 +3,11 @@
 package typecast
 
 import (
-	"github.com/reedom/convergen/tests/fixtures/usecase/typecast/domain"
-	"github.com/reedom/convergen/tests/fixtures/usecase/typecast/model"
+	"github.com/qwenode/convergen/tests/fixtures/usecase/typecast/domain"
+	"github.com/qwenode/convergen/tests/fixtures/usecase/typecast/model"
 )
 
-//go:generate go run github.com/reedom/convergen
+//go:generate go run github.com/qwenode/convergen
 type Convergen interface {
 	// :typecast
 	// DomainToModel converts domain.User to model.User.

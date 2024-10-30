@@ -12,7 +12,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/reedom/convergen/pkg/util"
+	"github.com/qwenode/convergen/pkg/util"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -273,7 +273,7 @@ func TestRemoveBuildFlagAndGenerator(t *testing.T) {
 //go:build convergen
 // +build convergen
 
-//go:generate go run github.com/reedom/convergen
+//go:generate go run github.com/qwenode/convergen
 var y = 1
 `
 

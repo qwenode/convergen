@@ -3,7 +3,7 @@ package option_test
 import (
 	"testing"
 
-	"github.com/reedom/convergen/pkg/option"
+	"github.com/qwenode/convergen/pkg/option"
 )
 
 func TestIdentMatcher_Match(t *testing.T) {
@@ -20,13 +20,15 @@ func TestIdentMatcher_Match(t *testing.T) {
 		{"Case-insensitive mismatch", "foo", "Bar", false, false},
 	}
 	for _, tc := range testCases {
-		t.Run(tc.name, func(t *testing.T) {
-			m := option.NewIdentMatcher(tc.pattern)
-			got := m.Match(tc.ident, tc.exactCase)
-			if got != tc.wantResult {
-				t.Errorf("m.Match(%q, %v) = %v; want %v", tc.ident, tc.exactCase, got, tc.wantResult)
-			}
-		})
+		t.Run(
+			tc.name, func(t *testing.T) {
+				m := option.NewIdentMatcher(tc.pattern)
+				got := m.Match(tc.ident, tc.exactCase)
+				if got != tc.wantResult {
+					t.Errorf("m.Match(%q, %v) = %v; want %v", tc.ident, tc.exactCase, got, tc.wantResult)
+				}
+			},
+		)
 	}
 }
 
@@ -48,12 +50,14 @@ func TestIdentMatcher_PartialMatch(t *testing.T) {
 		{"Partial mismatch case-insensitive", "foo.bar.baz", "foo.bar.Qux.baz", false, false},
 	}
 	for _, tc := range testCases {
-		t.Run(tc.name, func(t *testing.T) {
-			m := option.NewIdentMatcher(tc.pattern)
-			got := m.PartialMatch(tc.ident, tc.exactCase)
-			if got != tc.wantResult {
-				t.Errorf("m.PartialMatch(%q, %v) = %v; want %v", tc.ident, tc.exactCase, got, tc.wantResult)
-			}
-		})
+		t.Run(
+			tc.name, func(t *testing.T) {
+				m := option.NewIdentMatcher(tc.pattern)
+				got := m.PartialMatch(tc.ident, tc.exactCase)
+				if got != tc.wantResult {
+					t.Errorf("m.PartialMatch(%q, %v) = %v; want %v", tc.ident, tc.exactCase, got, tc.wantResult)
+				}
+			},
+		)
 	}
 }

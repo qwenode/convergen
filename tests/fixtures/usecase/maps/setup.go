@@ -20,7 +20,7 @@ func (t *JSONDate) Time() time.Time {
 	return time.Time(*t)
 }
 
-//go:generate go run github.com/reedom/convergen
+//go:generate go run github.com/qwenode/convergen
 type Convergen interface {
 	// :map JSONDate.Time() JSONDate
 	FromTo(*From) *To

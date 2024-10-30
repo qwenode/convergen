@@ -27,8 +27,8 @@ lint:
 .PHONY: test
 test: ## Run all tests
 test:
-	go test github.com/reedom/convergen/tests && \
-	go test github.com/reedom/convergen/pkg/...
+	go test github.com/qwenode/convergen/tests && \
+	go test github.com/qwenode/convergen/pkg/...
 
 .PHONY: coverage
 coverage:

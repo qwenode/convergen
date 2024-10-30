@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/reedom/convergen/pkg/config"
-	"github.com/reedom/convergen/pkg/runner"
+	"github.com/qwenode/convergen/pkg/config"
+	"github.com/qwenode/convergen/pkg/runner"
 )
 
 func main() {

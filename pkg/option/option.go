@@ -3,7 +3,7 @@ package option
 import (
 	"strings"
 
-	"github.com/reedom/convergen/pkg/generator/model"
+	"github.com/qwenode/convergen/pkg/generator/model"
 )
 
 // Options represents the conversion options.

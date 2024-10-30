@@ -3,7 +3,7 @@ package generator
 import (
 	"strings"
 
-	"github.com/reedom/convergen/pkg/generator/model"
+	"github.com/qwenode/convergen/pkg/generator/model"
 )
 
 // ManipulatorToString returns a string representation of the given Manipulator.

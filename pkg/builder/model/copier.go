@@ -3,7 +3,7 @@ package model
 import (
 	"go/types"
 
-	"github.com/reedom/convergen/pkg/util"
+	"github.com/qwenode/convergen/pkg/util"
 )
 
 // Copier contains a helper function information.

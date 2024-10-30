@@ -1,7 +1,7 @@
 package domain
 
 import (
-	"github.com/reedom/convergen/tests/fixtures/usecase/typecast/enums"
+	"github.com/qwenode/convergen/tests/fixtures/usecase/typecast/enums"
 )
 
 type User struct {

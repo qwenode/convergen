@@ -14,7 +14,7 @@ type StorageModel struct {
 	ID string
 }
 
-//go:generate go run github.com/reedom/convergen
+//go:generate go run github.com/qwenode/convergen
 type Convergen interface {
 	// :recv d
 	ToTransport(*DomainModel) *TransportModel

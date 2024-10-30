@@ -5,8 +5,8 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/reedom/convergen/pkg/generator/model"
-	"github.com/reedom/convergen/pkg/option"
+	"github.com/qwenode/convergen/pkg/generator/model"
+	"github.com/qwenode/convergen/pkg/option"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -14,18 +14,24 @@ import (
 func TestNotations(t *testing.T) {
 	t.Parallel()
 
-	t.Run("common with ValidOpsIntf", func(t *testing.T) {
-		t.Parallel()
-		testCommonNotations(t, option.ValidOpsIntf)
-	})
-	t.Run("common with ValidOpsMethod", func(t *testing.T) {
-		t.Parallel()
-		testCommonNotations(t, option.ValidOpsMethod)
-	})
-	t.Run("methods", func(t *testing.T) {
-		t.Parallel()
-		testMethodNotations(t)
-	})
+	t.Run(
+		"common with ValidOpsIntf", func(t *testing.T) {
+			t.Parallel()
+			testCommonNotations(t, option.ValidOpsIntf)
+		},
+	)
+	t.Run(
+		"common with ValidOpsMethod", func(t *testing.T) {
+			t.Parallel()
+			testCommonNotations(t, option.ValidOpsMethod)
+		},
+	)
+	t.Run(
+		"methods", func(t *testing.T) {
+			t.Parallel()
+			testMethodNotations(t)
+		},
+	)
 }
 
 func testCommonNotations(t *testing.T, validOpts map[string]struct{}) {

@@ -5,7 +5,7 @@ import (
 	"go/types"
 	"testing"
 
-	"github.com/reedom/convergen/pkg/util"
+	"github.com/qwenode/convergen/pkg/util"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -211,8 +211,12 @@ func TestPkgOf(t *testing.T) {
 	// Define types in the "testing" and "fmt" packages.
 	testingPkg := types.NewPackage("testing", "testing")
 	fmtPkg := types.NewPackage("fmt", "fmt")
-	testingIntTyp := types.NewNamed(types.NewTypeName(0, testingPkg, "Int", types.Typ[types.Int]), types.Typ[types.Int], nil)
-	fmtStringTyp := types.NewNamed(types.NewTypeName(0, fmtPkg, "String", types.Typ[types.String]), types.Typ[types.String], nil)
+	testingIntTyp := types.NewNamed(
+		types.NewTypeName(0, testingPkg, "Int", types.Typ[types.Int]), types.Typ[types.Int], nil,
+	)
+	fmtStringTyp := types.NewNamed(
+		types.NewTypeName(0, fmtPkg, "String", types.Typ[types.String]), types.Typ[types.String], nil,
+	)
 
 	// Define a basic type and a named type.
 	typ := types.Typ[types.Int]
@@ -323,21 +327,21 @@ func TestToTextList(t *testing.T) {
 	assert.Equal(t, []string{"// comment 1\n", "// comment 2\n"}, actual)
 }
 
-//func TestWalkStruct(t *testing.T) {
+// func TestWalkStruct(t *testing.T) {
 //	src := `
-//package main
+// package main
 //
-//type Model struct {
+// type Model struct {
 //  ID   int
 //  Name string
 //  Cat *Category
-//}
+// }
 //
-//type Category struct {
+// type Category struct {
 //	ID   int
 //	Name string
-//}
-//`
+// }
+// `
 //
 //	_, _, pkg := testLoadSrc(t, src)
 //	obj := pkg.Scope().Lookup("Model")
@@ -351,7 +355,7 @@ func TestToTextList(t *testing.T) {
 //	}
 //
 //	walkStruct("v", pkg, obj.structObj(), cb, opt)
-//}
+// }
 
 func TestPathMatch(t *testing.T) {
 	t.Parallel()
@@ -515,10 +519,12 @@ func (s S) NonGetter(i int) int {
 	}
 
 	for _, tt := range cases {
-		t.Run(tt.name, func(t *testing.T) {
-			m := util.FindMethod(obj.Type(), tt.name, true)
-			assert.Equal(t, tt.expected, util.CompliesGetter(m))
-		})
+		t.Run(
+			tt.name, func(t *testing.T) {
+				m := util.FindMethod(obj.Type(), tt.name, true)
+				assert.Equal(t, tt.expected, util.CompliesGetter(m))
+			},
+		)
 	}
 }
 
@@ -561,9 +567,11 @@ func V() string {
 	}
 
 	for _, tt := range cases {
-		t.Run(tt.name, func(t *testing.T) {
-			obj := pkg.Scope().Lookup(tt.name)
-			assert.Equal(t, tt.expected, util.CompliesStringer(obj.Type()))
-		})
+		t.Run(
+			tt.name, func(t *testing.T) {
+				obj := pkg.Scope().Lookup(tt.name)
+				assert.Equal(t, tt.expected, util.CompliesStringer(obj.Type()))
+			},
+		)
 	}
 }

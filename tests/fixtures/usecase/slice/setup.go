@@ -18,7 +18,7 @@ type Data struct{}
 
 type Status int
 
-//go:generate go run github.com/reedom/convergen
+//go:generate go run github.com/qwenode/convergen
 type Convergen interface {
 	// :typecast
 	Copy(*SrcType) *DstType

@@ -3,7 +3,7 @@
 package nocase
 
 import (
-	"github.com/reedom/convergen/tests/fixtures/usecase/nocase/model"
+	"github.com/qwenode/convergen/tests/fixtures/usecase/nocase/model"
 )
 
 type ModelA struct {
@@ -20,7 +20,7 @@ type ModelB struct {
 	name string
 }
 
-//go:generate go run github.com/reedom/convergen
+//go:generate go run github.com/qwenode/convergen
 type Convergen interface {
 	// :case:off
 	// :getter

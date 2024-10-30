@@ -3,11 +3,11 @@
 package literal
 
 import (
-	"github.com/reedom/convergen/tests/fixtures/data/domain"
-	"github.com/reedom/convergen/tests/fixtures/data/model"
+	"github.com/qwenode/convergen/tests/fixtures/data/domain"
+	"github.com/qwenode/convergen/tests/fixtures/data/model"
 )
 
-//go:generate go run github.com/reedom/convergen
+//go:generate go run github.com/qwenode/convergen
 type Convergen interface {
 	// :literal  Name   "abc  def"
 	DomainToModel(*domain.Pet) *model.Pet

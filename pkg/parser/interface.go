@@ -5,9 +5,9 @@ import (
 	"unicode"
 
 	gonanoid "github.com/matoous/go-nanoid"
-	"github.com/reedom/convergen/pkg/logger"
-	"github.com/reedom/convergen/pkg/option"
-	"github.com/reedom/convergen/pkg/util"
+	"github.com/qwenode/convergen/pkg/logger"
+	"github.com/qwenode/convergen/pkg/option"
+	"github.com/qwenode/convergen/pkg/util"
 )
 
 const intfName = "Convergen"

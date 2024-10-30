@@ -8,11 +8,11 @@ import (
 	"regexp"
 	"strings"
 
-	bmodel "github.com/reedom/convergen/pkg/builder/model"
-	gmodel "github.com/reedom/convergen/pkg/generator/model"
-	"github.com/reedom/convergen/pkg/logger"
-	"github.com/reedom/convergen/pkg/option"
-	"github.com/reedom/convergen/pkg/util"
+	bmodel "github.com/qwenode/convergen/pkg/builder/model"
+	gmodel "github.com/qwenode/convergen/pkg/generator/model"
+	"github.com/qwenode/convergen/pkg/logger"
+	"github.com/qwenode/convergen/pkg/option"
+	"github.com/qwenode/convergen/pkg/util"
 )
 
 var (
@@ -28,7 +28,9 @@ var (
 
 // parseNotationInComments parses given notations and set the values into given Options.
 // validOps is a map of valid operation names.
-func (p *Parser) parseNotationInComments(notations []*ast.Comment, validOps map[string]struct{}, opts *option.Options) error {
+func (p *Parser) parseNotationInComments(
+	notations []*ast.Comment, validOps map[string]struct{}, opts *option.Options,
+) error {
 	var posReverse token.Pos
 
 	for _, n := range notations {
@@ -222,7 +224,9 @@ func (p *Parser) resolveConverters(generatingMethods []*bmodel.MethodEntry, conv
 // lookupConverterFunc finds and returns the argument and return types of a function
 // with the given name and position.
 // It checks that the function is a valid converter function and can be used as such.
-func (p *Parser) lookupConverterFunc(funcName string, pos token.Pos) (argType, retType types.Type, retError bool, err error) {
+func (p *Parser) lookupConverterFunc(
+	funcName string, pos token.Pos,
+) (argType, retType types.Type, retError bool, err error) {
 	_, obj := p.lookupType(funcName, pos)
 	if obj == nil {
 		err = logger.Errorf("%v: function %v not found", p.fset.Position(pos), funcName)

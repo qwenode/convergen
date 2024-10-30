@@ -4,13 +4,13 @@
 package getter
 
 import (
-	"github.com/reedom/convergen/tests/fixtures/data/ddd/domain"
-	"github.com/reedom/convergen/tests/fixtures/data/ddd/model"
+	"github.com/qwenode/convergen/tests/fixtures/data/ddd/domain"
+	"github.com/qwenode/convergen/tests/fixtures/data/ddd/model"
 )
 
 // :getter:off
 //
-//go:generate go run github.com/reedom/convergen
+//go:generate go run github.com/qwenode/convergen
 type Convergen interface {
 	// DomainToModel copies domain.Pet to model.Pet.
 	// :skip PhotoUrls

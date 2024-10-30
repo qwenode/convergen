@@ -3,7 +3,7 @@ package model_test
 import (
 	"testing"
 
-	"github.com/reedom/convergen/pkg/generator/model"
+	"github.com/qwenode/convergen/pkg/generator/model"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -14,16 +14,20 @@ func TestSkipField(t *testing.T) {
 		LHS: "foo",
 	}
 
-	t.Run("String", func(t *testing.T) {
-		expected := "// skip: foo\n"
-		actual := sf.String()
-		assert.Equal(t, expected, actual)
-	})
+	t.Run(
+		"String", func(t *testing.T) {
+			expected := "// skip: foo\n"
+			actual := sf.String()
+			assert.Equal(t, expected, actual)
+		},
+	)
 
-	t.Run("RetError", func(t *testing.T) {
-		actual := sf.RetError()
-		require.False(t, actual)
-	})
+	t.Run(
+		"RetError", func(t *testing.T) {
+			actual := sf.RetError()
+			require.False(t, actual)
+		},
+	)
 }
 
 func TestNoMatchField(t *testing.T) {
@@ -32,16 +36,20 @@ func TestNoMatchField(t *testing.T) {
 		LHS: "foo",
 	}
 
-	t.Run("String", func(t *testing.T) {
-		expected := "// no match: foo\n"
-		actual := nmf.String()
-		assert.Equal(t, expected, actual)
-	})
+	t.Run(
+		"String", func(t *testing.T) {
+			expected := "// no match: foo\n"
+			actual := nmf.String()
+			assert.Equal(t, expected, actual)
+		},
+	)
 
-	t.Run("RetError", func(t *testing.T) {
-		actual := nmf.RetError()
-		require.False(t, actual)
-	})
+	t.Run(
+		"RetError", func(t *testing.T) {
+			actual := nmf.RetError()
+			require.False(t, actual)
+		},
+	)
 }
 
 func TestSimpleField(t *testing.T) {
@@ -52,16 +60,20 @@ func TestSimpleField(t *testing.T) {
 		Error: true,
 	}
 
-	t.Run("String", func(t *testing.T) {
-		expected := "foo, err = bar\n"
-		actual := sf.String()
-		assert.Equal(t, expected, actual)
-	})
+	t.Run(
+		"String", func(t *testing.T) {
+			expected := "foo, err = bar\n"
+			actual := sf.String()
+			assert.Equal(t, expected, actual)
+		},
+	)
 
-	t.Run("RetError", func(t *testing.T) {
-		actual := sf.RetError()
-		require.True(t, actual)
-	})
+	t.Run(
+		"RetError", func(t *testing.T) {
+			actual := sf.RetError()
+			require.True(t, actual)
+		},
+	)
 }
 
 func TestNestStruct(t *testing.T) {
@@ -76,22 +88,26 @@ func TestNestStruct(t *testing.T) {
 		},
 	}
 
-	t.Run("String", func(t *testing.T) {
-		expected := `if nullCheckExpr != nil {
+	t.Run(
+		"String", func(t *testing.T) {
+			expected := `if nullCheckExpr != nil {
 initExpr
 foo = bar
 // skip: baz
 // no match: qux
 }
 `
-		actual := ns.String()
-		assert.Equal(t, expected, actual)
-	})
+			actual := ns.String()
+			assert.Equal(t, expected, actual)
+		},
+	)
 
-	t.Run("RetError", func(t *testing.T) {
-		actual := ns.RetError()
-		require.False(t, actual)
-	})
+	t.Run(
+		"RetError", func(t *testing.T) {
+			actual := ns.RetError()
+			require.False(t, actual)
+		},
+	)
 }
 
 func TestSliceAssignment(t *testing.T) {
@@ -102,20 +118,24 @@ func TestSliceAssignment(t *testing.T) {
 		Typ: "[]int",
 	}
 
-	t.Run("String", func(t *testing.T) {
-		expected := `if bar != nil {
+	t.Run(
+		"String", func(t *testing.T) {
+			expected := `if bar != nil {
 foo = make([]int, len(bar))
 copy(foo, bar)
 }
 `
-		actual := sa.String()
-		assert.Equal(t, expected, actual)
-	})
+			actual := sa.String()
+			assert.Equal(t, expected, actual)
+		},
+	)
 
-	t.Run("RetError", func(t *testing.T) {
-		actual := sa.RetError()
-		require.False(t, actual)
-	})
+	t.Run(
+		"RetError", func(t *testing.T) {
+			actual := sa.RetError()
+			require.False(t, actual)
+		},
+	)
 }
 
 func TestSliceTypecastAssignment(t *testing.T) {
@@ -127,20 +147,24 @@ func TestSliceTypecastAssignment(t *testing.T) {
 		Cast: "string",
 	}
 
-	t.Run("String", func(t *testing.T) {
-		expected := `if bar != nil {
+	t.Run(
+		"String", func(t *testing.T) {
+			expected := `if bar != nil {
 foo = make([]string, len(bar))
 for i, e := range bar{
 foo[i] = string(e)
 }
 }
 `
-		actual := sta.String()
-		assert.Equal(t, expected, actual)
-	})
+			actual := sta.String()
+			assert.Equal(t, expected, actual)
+		},
+	)
 
-	t.Run("RetError", func(t *testing.T) {
-		actual := sta.RetError()
-		require.False(t, actual)
-	})
+	t.Run(
+		"RetError", func(t *testing.T) {
+			actual := sta.RetError()
+			require.False(t, actual)
+		},
+	)
 }

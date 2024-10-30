@@ -5,10 +5,10 @@ import (
 	"os"
 	"testing"
 
-	"github.com/reedom/convergen/pkg/generator"
-	"github.com/reedom/convergen/pkg/generator/model"
-	"github.com/reedom/convergen/pkg/logger"
-	"github.com/reedom/convergen/pkg/parser"
+	"github.com/qwenode/convergen/pkg/generator"
+	"github.com/qwenode/convergen/pkg/generator/model"
+	"github.com/qwenode/convergen/pkg/logger"
+	"github.com/qwenode/convergen/pkg/parser"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -86,46 +86,48 @@ func TestUseCases(t *testing.T) {
 
 	for _, tt := range cases {
 		tt := tt
-		t.Run(tt.source, func(t *testing.T) {
-			t.Parallel()
-			expected, err := os.ReadFile(tt.expected)
-			require.Nil(t, err)
-
-			//log.SetFlags(log.Llongfile)
-			//logger.SetupLogger(logger.Enable())
-
-			p, err := parser.NewParser(tt.source, tt.expected)
-			require.Nil(t, err)
-			methods, err := p.Parse()
-			require.Nil(t, err)
-
-			var funcBlocks []model.FunctionsBlock
-			builder := p.CreateBuilder()
-			for _, info := range methods {
-				functions, err := builder.CreateFunctions(info.Methods)
+		t.Run(
+			tt.source, func(t *testing.T) {
+				t.Parallel()
+				expected, err := os.ReadFile(tt.expected)
 				require.Nil(t, err)
-				block := model.FunctionsBlock{
-					Marker:    info.Marker,
-					Functions: functions,
+
+				// log.SetFlags(log.Llongfile)
+				// logger.SetupLogger(logger.Enable())
+
+				p, err := parser.NewParser(tt.source, tt.expected)
+				require.Nil(t, err)
+				methods, err := p.Parse()
+				require.Nil(t, err)
+
+				var funcBlocks []model.FunctionsBlock
+				builder := p.CreateBuilder()
+				for _, info := range methods {
+					functions, err := builder.CreateFunctions(info.Methods)
+					require.Nil(t, err)
+					block := model.FunctionsBlock{
+						Marker:    info.Marker,
+						Functions: functions,
+					}
+					funcBlocks = append(funcBlocks, block)
 				}
-				funcBlocks = append(funcBlocks, block)
-			}
 
-			baseCode, err := p.GenerateBaseCode()
-			require.Nil(t, err)
-			code := model.Code{
-				BaseCode:       baseCode,
-				FunctionBlocks: funcBlocks,
-			}
+				baseCode, err := p.GenerateBaseCode()
+				require.Nil(t, err)
+				code := model.Code{
+					BaseCode:       baseCode,
+					FunctionBlocks: funcBlocks,
+				}
 
-			g := generator.NewGenerator(code)
-			actual, err := g.Generate(tt.source, false, true)
-			require.Nil(t, err)
+				g := generator.NewGenerator(code)
+				actual, err := g.Generate(tt.source, false, true)
+				require.Nil(t, err)
 
-			if !assert.Equal(t, string(expected), string(actual)) {
-				fmt.Println("-----------[generated]------------")
-				fmt.Println(string(actual))
-			}
-		})
+				if !assert.Equal(t, string(expected), string(actual)) {
+					fmt.Println("-----------[generated]------------")
+					fmt.Println(string(actual))
+				}
+			},
+		)
 	}
 }

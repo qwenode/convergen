@@ -3,7 +3,7 @@
 package style
 
 import (
-	"github.com/reedom/convergen/tests/fixtures/data/model"
+	"github.com/qwenode/convergen/tests/fixtures/data/model"
 )
 
 type Pet struct {
@@ -14,7 +14,7 @@ type Pet struct {
 	Status    string         `storage:"status"`
 }
 
-//go:generate go run github.com/reedom/convergen
+//go:generate go run github.com/qwenode/convergen
 type Convergen interface {
 	// :style arg
 	ArgToArg(pet *Pet) *model.Pet
@@ -35,7 +35,7 @@ type Convergen interface {
 	// :style arg
 	RevRcvFromArgPtr(*Pet) (pet *model.Pet)
 	// It is illegal to specify :recv:rev and :style return.
-	//// :recv:rev m
-	//// :style return
-	//RcvFromReturn(*model.Pet) *Pet
+	// // :recv:rev m
+	// // :style return
+	// RcvFromReturn(*model.Pet) *Pet
 }

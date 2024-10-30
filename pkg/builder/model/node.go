@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"go/types"
 
-	"github.com/reedom/convergen/pkg/option"
-	"github.com/reedom/convergen/pkg/util"
+	"github.com/qwenode/convergen/pkg/option"
+	"github.com/qwenode/convergen/pkg/util"
 )
 
 type Node interface {
@@ -174,7 +174,7 @@ func (n ScalarNode) NullCheckExpr() string {
 // ConverterNode is a node that represents a converter function.
 type ConverterNode struct {
 	arg Node
-	//pkgName   string
+	// pkgName   string
 	converter *option.FieldConverter
 }
 

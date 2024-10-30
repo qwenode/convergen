@@ -1,9 +1,10 @@
 package generator
 
 import (
+	"fmt"
 	"strings"
 
-	"github.com/reedom/convergen/pkg/generator/model"
+	"github.com/qwenode/convergen/pkg/generator/model"
 )
 
 // FuncToString generates the string representation of a given Function.
@@ -80,7 +81,9 @@ func (g *Generator) FuncToString(f *model.Function) string {
 			sb.WriteString("{}\n")
 		}
 	} else {
-		if f.RetError {
+		if f.Receiver != "" && f.DstVarStyle == model.DstVarArg {
+			sb.WriteString(f.Src.FullType() + "{")
+		} else if f.RetError {
 			// "func Name(dst *DstModel, src *SrcModel) (err error) {"
 			sb.WriteString("(err error) {\n")
 		} else {
@@ -100,6 +103,9 @@ func (g *Generator) FuncToString(f *model.Function) string {
 	}
 	if f.RetError || f.DstVarStyle == model.DstVarReturn {
 		sb.WriteString("\nreturn\n")
+	}
+	if f.Receiver != "" && f.DstVarStyle == model.DstVarArg {
+		sb.WriteString(fmt.Sprintf("\nreturn %s \n", f.Receiver))
 	}
 	sb.WriteString("}\n\n")
 	return sb.String()

@@ -4,17 +4,21 @@ import (
 	"go/types"
 	"testing"
 
-	"github.com/reedom/convergen/pkg/builder/model"
+	"github.com/qwenode/convergen/pkg/builder/model"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestStructFieldNode(t *testing.T) {
 	// Create a parent node.
-	parent := model.NewRootNode("dst", types.NewPointer(types.NewNamed(
-		types.NewTypeName(0, nil, "MyStruct", nil),
-		nil,
-		nil,
-	)))
+	parent := model.NewRootNode(
+		"dst", types.NewPointer(
+			types.NewNamed(
+				types.NewTypeName(0, nil, "MyStruct", nil),
+				nil,
+				nil,
+			),
+		),
+	)
 	// Create a field node.
 	field := types.NewField(0, nil, "MyField", types.Typ[types.String], false)
 	fieldNode := model.NewStructFieldNode(parent, field)
@@ -31,11 +35,15 @@ func TestStructFieldNode(t *testing.T) {
 
 func TestStructMethodNode(t *testing.T) {
 	// Create a parent node.
-	parent := model.NewRootNode("dst", types.NewPointer(types.NewNamed(
-		types.NewTypeName(0, nil, "MyStruct", nil),
-		nil,
-		nil,
-	)))
+	parent := model.NewRootNode(
+		"dst", types.NewPointer(
+			types.NewNamed(
+				types.NewTypeName(0, nil, "MyStruct", nil),
+				nil,
+				nil,
+			),
+		),
+	)
 	// Create a method node.
 	params := types.NewTuple(types.NewParam(0, nil, "", types.Typ[types.Int]))
 	results := types.NewTuple(types.NewParam(0, nil, "", types.Typ[types.Int]))

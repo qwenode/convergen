@@ -9,11 +9,11 @@ import (
 	"os"
 	"regexp"
 
-	"github.com/reedom/convergen/pkg/builder"
-	"github.com/reedom/convergen/pkg/builder/model"
-	"github.com/reedom/convergen/pkg/logger"
-	"github.com/reedom/convergen/pkg/option"
-	"github.com/reedom/convergen/pkg/util"
+	"github.com/qwenode/convergen/pkg/builder"
+	"github.com/qwenode/convergen/pkg/builder/model"
+	"github.com/qwenode/convergen/pkg/logger"
+	"github.com/qwenode/convergen/pkg/option"
+	"github.com/qwenode/convergen/pkg/util"
 	"golang.org/x/tools/go/packages"
 )
 
@@ -155,22 +155,24 @@ func (p *Parser) GenerateBaseCode() (code string, err error) {
 		for _, node := range nodes {
 			switch n := node.(type) {
 			case *ast.GenDecl:
-				ast.Inspect(n, func(node ast.Node) bool {
-					if node == nil {
-						return true
-					}
-					if f, ok := node.(*ast.FieldList); ok {
-						if minPos == 0 {
-							minPos = f.Pos()
-							maxPos = f.Closing
-						} else if f.Pos() < minPos {
-							minPos = f.Pos()
-						} else if maxPos < f.Closing {
-							maxPos = f.Closing
+				ast.Inspect(
+					n, func(node ast.Node) bool {
+						if node == nil {
+							return true
 						}
-					}
-					return true
-				})
+						if f, ok := node.(*ast.FieldList); ok {
+							if minPos == 0 {
+								minPos = f.Pos()
+								maxPos = f.Closing
+							} else if f.Pos() < minPos {
+								minPos = f.Pos()
+							} else if maxPos < f.Closing {
+								maxPos = f.Closing
+							}
+						}
+						return true
+					},
+                )
 			}
 		}
 
