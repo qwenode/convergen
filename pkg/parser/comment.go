@@ -20,7 +20,7 @@ var (
 	reNotation = regexp.MustCompile(`^\s*//\s*:(\S+)\s*(.*)$`)
 	// reConvergen is a regular expression that matches a notation that
 	// indicates the beginning of a convergen block.
-	reConvergen = regexp.MustCompile(`^\s*//\s*:convergen\b`)
+	reConvergen = regexp.MustCompile(`^\s*//\s*convergen\b`)
 	// reLiteral is a regular expression that matches a notation that
 	// indicates the beginning of a literal block.
 	reLiteral = regexp.MustCompile(`^\s*\S+\s+(.*)$`)
