@@ -1,13 +1,13 @@
 package runner
 
 import (
-	"os"
+    "os"
 
-	"github.com/qwenode/convergen/pkg/config"
-	"github.com/qwenode/convergen/pkg/generator"
-	"github.com/qwenode/convergen/pkg/generator/model"
-	"github.com/qwenode/convergen/pkg/logger"
-	"github.com/qwenode/convergen/pkg/parser"
+    "github.com/qwenode/convergen/pkg/config"
+    "github.com/qwenode/convergen/pkg/generator"
+    "github.com/qwenode/convergen/pkg/generator/model"
+    "github.com/qwenode/convergen/pkg/logger"
+    "github.com/qwenode/convergen/pkg/parser"
 )
 
 // Run runs the convergen code generator using the provided configuration.
@@ -18,54 +18,54 @@ import (
 // the parsed base code. Finally, it generates the output files using the generated code and
 // the provided configuration options.
 func Run(conf config.Config) error {
-	if conf.Log != "" {
-		f, err := os.OpenFile(conf.Log, os.O_RDWR|os.O_TRUNC|os.O_CREATE, 0644)
-		if err != nil {
-			return err
-		}
-		logger.SetupLogger(logger.Enable(), logger.Output(f))
-	}
+    if conf.Log != "" {
+        f, err := os.OpenFile(conf.Log, os.O_RDWR|os.O_TRUNC|os.O_CREATE, 0644)
+        if err != nil {
+            return err
+        }
+        logger.SetupLogger(logger.Enable(), logger.Output(f))
+    }
 
-	p, err := parser.NewParser(conf.Input, conf.Output)
-	if err != nil {
-		return err
-	}
+    p, err := parser.NewParser(conf.Input, conf.Output)
+    if err != nil {
+        return err
+    }
 
-	methods, err := p.Parse()
-	if err != nil {
-		return err
-	}
+    methods, err := p.Parse()
+    if err != nil {
+        return err
+    }
 
-	builder := p.CreateBuilder()
+    builder := p.CreateBuilder()
 
-	var funcBlocks []model.FunctionsBlock
-	for _, info := range methods {
-		functions, err := builder.CreateFunctions(info.Methods)
-		if err != nil {
-			return err
-		}
-		block := model.FunctionsBlock{
-			Marker:    info.Marker,
-			Functions: functions,
-		}
-		funcBlocks = append(funcBlocks, block)
-	}
+    var funcBlocks []model.FunctionsBlock
+    for _, info := range methods {
+        functions, err := builder.CreateFunctions(info.Methods)
+        if err != nil {
+            return err
+        }
+        block := model.FunctionsBlock{
+            Marker:    info.Marker,
+            Functions: functions,
+        }
+        funcBlocks = append(funcBlocks, block)
+    }
 
-	baseCode, err := p.GenerateBaseCode()
-	if err != nil {
-		return err
-	}
+    baseCode, err := p.GenerateBaseCode()
+    if err != nil {
+        return err
+    }
 
-	code := model.Code{
-		BaseCode:       baseCode,
-		FunctionBlocks: funcBlocks,
-	}
+    code := model.Code{
+        BaseCode:       baseCode,
+        FunctionBlocks: funcBlocks,
+    }
 
-	g := generator.NewGenerator(code)
-	_, err = g.Generate(conf.Output, conf.Prints, conf.DryRun)
-	if err != nil {
-		return err
-	}
+    g := generator.NewGenerator(code)
+    _, err = g.Generate(conf.Output, conf.Prints, conf.DryRun)
+    if err != nil {
+        return err
+    }
 
-	return nil
+    return nil
 }

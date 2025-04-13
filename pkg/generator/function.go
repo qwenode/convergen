@@ -54,6 +54,14 @@ func (g *Generator) FuncToString(f *model.Function) string {
 		sb.WriteString(" ")
 		sb.WriteString(f.Src.FullType())
 	}
+
+	for _, args := range f.AdditionalArgs {
+		sb.WriteString(", ")
+		sb.WriteString(args.Name)
+		sb.WriteString(" ")
+		sb.WriteString(args.FullType())
+	}
+
 	// "func Name(dst *DstModel, src *SrcModel)"
 	sb.WriteString(") ")
 
@@ -93,13 +101,13 @@ func (g *Generator) FuncToString(f *model.Function) string {
 	}
 
 	if f.PreProcess != nil {
-		sb.WriteString(g.ManipulatorToString(f.PreProcess, f.Src, f.Dst))
+		sb.WriteString(g.ManipulatorToString(f.PreProcess, f.Src, f.Dst, f.AdditionalArgs))
 	}
 	for i := range f.Assignments {
 		sb.WriteString(AssignmentToString(f, f.Assignments[i]))
 	}
 	if f.PostProcess != nil {
-		sb.WriteString(g.ManipulatorToString(f.PostProcess, f.Src, f.Dst))
+		sb.WriteString(g.ManipulatorToString(f.PostProcess, f.Src, f.Dst, f.AdditionalArgs))
 	}
 	if f.RetError || f.DstVarStyle == model.DstVarReturn {
 		sb.WriteString("\nreturn\n")

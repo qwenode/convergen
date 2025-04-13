@@ -4,24 +4,24 @@
 package ref
 
 import (
-	"github.com/qwenode/convergen/tests/fixtures/data/domain"
-	"github.com/qwenode/convergen/tests/fixtures/data/model"
+    "github.com/qwenode/convergen/tests/fixtures/data/domain"
+    "github.com/qwenode/convergen/tests/fixtures/data/model"
 )
 
 func CatDomainToModel(src *domain.Category) (dst model.Category) {
-	dst.CategoryID = uint64(src.ID)
-	dst.Name = src.Name
+    dst.CategoryID = uint64(src.ID)
+    dst.Name = src.Name
 
-	return
+    return
 }
 
 func DomainToModel(src *domain.Pet) (dst *model.Pet) {
-	dst = &model.Pet{}
-	// no match: dst.ID
-	dst.Category = CatDomainToModel(&src.Category)
-	dst.Name = src.Name
-	// no match: dst.PhotoUrls
-	// no match: dst.Status
+    dst = &model.Pet{}
+    // no match: dst.ID
+    dst.Category = CatDomainToModel(&src.Category)
+    dst.Name = src.Name
+    // no match: dst.PhotoUrls
+    // no match: dst.Status
 
-	return
+    return
 }

@@ -70,8 +70,8 @@ func (p *Parser) parseMethod(method types.Object, opts option.Options) (*model.M
 	cleanUp()
 
 	return &model.MethodEntry{
-		Method: method,
-		Opts: opts,
+		Method:     method,
+		Opts:       opts,
 		DocComment: docComment,
 	}, nil
 }

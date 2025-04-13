@@ -6,10 +6,10 @@ package multi_intf
 // TransportConverter should not be handled by the generator since
 // the generator treats only setup.go, the "input" file as the Convergen definition file.
 type TransportConverter interface {
-	// :recv t
-	ToDomain(*TransportModel) *DomainModel
-	// :recv t
-	ToStorage(*TransportModel) *StorageModel
+    // :recv t
+    ToDomain(*TransportModel) *DomainModel
+    // :recv t
+    ToStorage(*TransportModel) *StorageModel
 }
 
 // FooBar can be reached from functions in setup.go during the parse phase.

@@ -1,12 +1,13 @@
 package builder
 
 import (
-	"go/types"
+    "fmt"
+    "go/types"
 
-	gmodel "github.com/qwenode/convergen/pkg/generator/model"
-	"github.com/qwenode/convergen/pkg/logger"
-	"github.com/qwenode/convergen/pkg/option"
-	"github.com/qwenode/convergen/pkg/util"
+    gmodel "github.com/qwenode/convergen/pkg/generator/model"
+    "github.com/qwenode/convergen/pkg/logger"
+    "github.com/qwenode/convergen/pkg/option"
+    "github.com/qwenode/convergen/pkg/util"
 )
 
 // buildManipulator builds a gmodel.Manipulator based on the given Manipulator
@@ -15,42 +16,77 @@ import (
 // the source and destination variables.
 // If the Manipulator is nil, it returns nil and no error.
 func (p *FunctionBuilder) buildManipulator(
-	m *option.Manipulator, src *types.Var, dst *types.Var, retError bool,
+    m *option.Manipulator,
+    src, dst *types.Var,
+    additionalArgs []*types.Var,
+    retError bool,
 ) (*gmodel.Manipulator, error) {
-	if m == nil {
-		return nil, nil
-	}
+    if m == nil {
+        return nil, nil
+    }
 
-	ret := &gmodel.Manipulator{}
-	ret.Pkg, _ = p.imports.LookupName(m.Func.Pkg().Path())
-	ret.Name = m.Func.Name()
-	ret.RetError = m.RetError
+    ret := &gmodel.Manipulator{}
+    ret.Pkg, _ = p.imports.LookupName(m.Func.Pkg().Path())
+    ret.Name = m.Func.Name()
+    ret.RetError = m.RetError
 
-	if ret.Pkg != "" && !m.Func.Exported() {
-		return nil, logger.Errorf("%v: postprocess function %v is not exported", p.fset.Position(m.Pos), ret.FuncName())
-	}
+    if ret.Pkg != "" && !m.Func.Exported() {
+        return nil, logger.Errorf("%v: manipulator function %v is not exported", p.fset.Position(m.Pos), ret.FuncName())
+    }
 
-	if m.RetError && !retError {
-		return nil, logger.Errorf(
-			"%v: cannot use postprocess function %v due to mismatch of returning error", p.fset.Position(m.Pos),
-			ret.FuncName(),
-		)
-	}
+    if m.RetError && !retError {
+        return nil, logger.Errorf(
+            "%v: cannot use manipulator function %v due to mismatch of returning error", p.fset.Position(m.Pos),
+            ret.FuncName(),
+        )
+    }
 
-	if !types.AssignableTo(util.DerefPtr(m.DstSide), util.DerefPtr(dst.Type())) {
-		return nil, logger.Errorf(
-			"%v: postprocess function %v 1st arg type mismatch", p.fset.Position(m.Pos), ret.FuncName(),
-		)
-	}
+    if !types.AssignableTo(util.DerefPtr(m.DstSide), util.DerefPtr(dst.Type())) {
+        return nil, logger.Errorf(
+            "%v: manipulator function %v 1st arg type mismatch", p.fset.Position(m.Pos), ret.FuncName(),
+        )
+    }
 
-	if !types.AssignableTo(util.DerefPtr(m.SrcSide), util.DerefPtr(src.Type())) {
-		return nil, logger.Errorf(
-			"%v: postprocess function %v 2nd arg type mismatch", p.fset.Position(m.Pos), ret.FuncName(),
-		)
-	}
+    if !types.AssignableTo(util.DerefPtr(m.SrcSide), util.DerefPtr(src.Type())) {
+        return nil, logger.Errorf(
+            "%v: manipulator function %v 2nd arg type mismatch", p.fset.Position(m.Pos), ret.FuncName(),
+        )
+    }
 
-	ret.IsSrcPtr = util.IsPtr(m.SrcSide)
-	ret.IsDstPtr = util.IsPtr(m.DstSide)
+    if 0 < len(m.AdditionalArgs) {
+        if len(m.AdditionalArgs) != len(additionalArgs) {
+            return nil, logger.Errorf(
+                "%v: manipulator function %v additional args count mismatch", p.fset.Position(m.Pos), ret.FuncName(),
+            )
+        }
+        for i, arg := range m.AdditionalArgs {
+            if !types.AssignableTo(arg, additionalArgs[i].Type()) {
+                return nil, logger.Errorf(
+                    "%v: manipulator function %v %s arg type mismatch", p.fset.Position(m.Pos), ret.FuncName(),
+                    ordinalNumber(i+3),
+                )
+            }
+        }
+        ret.HasAdditionalArgs = true
+    }
+    ret.IsSrcPtr = util.IsPtr(m.SrcSide)
+    ret.IsDstPtr = util.IsPtr(m.DstSide)
 
-	return ret, nil
+    return ret, nil
+}
+
+func ordinalNumber(n int) string {
+    if 11 <= n && n <= 13 {
+        return fmt.Sprintf("%dth", n)
+    }
+    switch n % 10 {
+    case 1:
+        return fmt.Sprintf("%dst", n)
+    case 2:
+        return fmt.Sprintf("%dnd", n)
+    case 3:
+        return fmt.Sprintf("%drd", n)
+    default:
+        return fmt.Sprintf("%dth", n)
+    }
 }

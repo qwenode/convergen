@@ -8,6 +8,7 @@ import (
 	"github.com/qwenode/convergen/pkg/runner"
 )
 
+//go:generate go install .
 func main() {
 	var conf config.Config
 	if err := conf.ParseArgs(); err != nil {

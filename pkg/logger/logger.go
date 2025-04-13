@@ -52,10 +52,10 @@ func SetupLogger(options ...LoggerOpt) {
 		logger = log.New(io.Discard, "", 0)
 		elogger = log.New(os.Stderr, "", 0)
 	} else if opt.out != nil {
-		//f, err := os.OpenFile(opt.outputPath, os.O_WRONLY | os.O_CREATE | os.O_TRUNC, 0644)
-		//if err != nil {
-		//	return err
-		//}
+		// f, err := os.OpenFile(opt.outputPath, os.O_WRONLY | os.O_CREATE | os.O_TRUNC, 0644)
+		// if err != nil {
+		//    return err
+		// }
 		logger = log.New(opt.out, "", log.LstdFlags)
 		elogger = log.New(os.Stderr, "", 0)
 	} else {

@@ -3,15 +3,15 @@
 package slice
 
 type SrcType struct {
-	IntSlice    []int
-	DataSlice   []Data
-	StatusSlice []int
+    IntSlice    []int
+    DataSlice   []Data
+    StatusSlice []int
 }
 
 type DstType struct {
-	IntSlice    []int
-	DataSlice   []Data
-	StatusSlice []Status
+    IntSlice    []int
+    DataSlice   []Data
+    StatusSlice []Status
 }
 
 type Data struct{}
@@ -20,6 +20,6 @@ type Status int
 
 //go:generate go run github.com/qwenode/convergen
 type Convergen interface {
-	// :typecast
-	Copy(*SrcType) *DstType
+    // :typecast
+    Copy(*SrcType) *DstType
 }

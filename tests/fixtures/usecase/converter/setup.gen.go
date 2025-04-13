@@ -4,61 +4,61 @@
 package converter
 
 import (
-	"github.com/qwenode/convergen/tests/fixtures/data/domain"
-	"github.com/qwenode/convergen/tests/fixtures/data/model"
+    "github.com/qwenode/convergen/tests/fixtures/data/domain"
+    "github.com/qwenode/convergen/tests/fixtures/data/model"
 )
 
 func DomainToModel(src *domain.Pet) (dst *model.Pet) {
-	dst = &model.Pet{}
-	// no match: dst.ID
-	dst.Category = fromDomainCategory(src.Category)
-	dst.Name = src.Name
-	dst.PhotoUrls = urlsToStrings(src.PhotoUrls)
-	// no match: dst.Status
+    dst = &model.Pet{}
+    // no match: dst.ID
+    dst.Category = fromDomainCategory(src.Category)
+    dst.Name = src.Name
+    dst.PhotoUrls = urlsToStrings(src.PhotoUrls)
+    // no match: dst.Status
 
-	return
+    return
 }
 
 func ModelToDomain(src *model.Pet) (dst *domain.Pet, err error) {
-	dst = &domain.Pet{}
-	// no match: dst.ID
-	dst.Category = toDomainCategory(src.Category)
-	dst.Name = src.Name
-	dst.PhotoUrls = stringsToURLs(src.PhotoUrls)
-	dst.Status, err = domain.NewPetStatusFromValue(src.Status)
-	if err != nil {
-		return nil, err
-	}
+    dst = &domain.Pet{}
+    // no match: dst.ID
+    dst.Category = toDomainCategory(src.Category)
+    dst.Name = src.Name
+    dst.PhotoUrls = stringsToURLs(src.PhotoUrls)
+    dst.Status, err = domain.NewPetStatusFromValue(src.Status)
+    if err != nil {
+        return nil, err
+    }
 
-	return
+    return
 }
 
 func urlsToStrings(list []domain.URL) []string {
-	ret := make([]string, len(list))
-	for i, url := range list {
-		ret[i] = url.String()
-	}
-	return ret
+    ret := make([]string, len(list))
+    for i, url := range list {
+        ret[i] = url.String()
+    }
+    return ret
 }
 
 func stringsToURLs(list []string) []domain.URL {
-	ret := make([]domain.URL, len(list))
-	for i, s := range list {
-		ret[i] = domain.NewURL(s)
-	}
-	return ret
+    ret := make([]domain.URL, len(list))
+    for i, s := range list {
+        ret[i] = domain.NewURL(s)
+    }
+    return ret
 }
 
 func fromDomainCategory(cat domain.Category) model.Category {
-	return model.Category{
-		CategoryID: uint64(cat.ID),
-		Name:       cat.Name,
-	}
+    return model.Category{
+        CategoryID: uint64(cat.ID),
+        Name:       cat.Name,
+    }
 }
 
 func toDomainCategory(cat model.Category) domain.Category {
-	return domain.Category{
-		ID:   uint(cat.CategoryID),
-		Name: cat.Name,
-	}
+    return domain.Category{
+        ID:   uint(cat.CategoryID),
+        Name: cat.Name,
+    }
 }

@@ -14,15 +14,15 @@ Notation Table
 | :match &lt;`name` &#124; `none`>          | interface, method  | Sets the field matcher algorithm (default: `name`).                                   |
 | :style &lt;`return` &#124; `arg`>         | interface, method  | Sets the style of the assignee variable input/output (default: `return`).             |
 | :recv &lt;_var_>                          | method             | Specifies the source value as a receiver of the generated function.                   |
-| :reverse                                  | 	method            | Reverses the copy direction. Might be useful with receiver form.                      |
-| :case	                                    | interface, method  | Sets case-sensitive for name match (default).                                         |
-| :case:off	                                | interface, method  | Sets case-insensitive for name match.                                                 |
-| :getter	                                  | interface, method  | Includes getters for name match.                                                      |
-| :getter:off	                              | interface, method  | Excludes getters for name match (default).                                            |
-| :stringer                                 | 	interface, method | Calls String() if appropriate in name match.                                          |
-| :stringer:off                             | 	interface, method | Calls String() if appropriate in name match (default).                                |
-| :typecast	                                | interface, method	 | Allows type casting if appropriate in name match.                                     |
-| :typecast:off                             | 	interface, method | Suppresses type casting if appropriate in name match (default).                       |
+| :reverse                                  |     method            | Reverses the copy direction. Might be useful with receiver form.                      |
+| :case                                        | interface, method  | Sets case-sensitive for name match (default).                                         |
+| :case:off                                    | interface, method  | Sets case-insensitive for name match.                                                 |
+| :getter                                      | interface, method  | Includes getters for name match.                                                      |
+| :getter:off                                  | interface, method  | Excludes getters for name match (default).                                            |
+| :stringer                                 |     interface, method | Calls String() if appropriate in name match.                                          |
+| :stringer:off                             |     interface, method | Calls String() if appropriate in name match (default).                                |
+| :typecast                                    | interface, method     | Allows type casting if appropriate in name match.                                     |
+| :typecast:off                             |     interface, method | Suppresses type casting if appropriate in name match (default).                       |
 | :skip &lt;_dst field pattern_>            | method             | Marks the destination field to skip copying. Regex is allowed in /…/ syntax.          |
 | :map &lt;_src_> &lt;_dst field_>          | method             | the pair as assign source and destination.                                            |
 | :conv &lt;_func_> &lt;_src_> [_to field_] | method             | Converts the source value by the converter and assigns its result to the destination. |

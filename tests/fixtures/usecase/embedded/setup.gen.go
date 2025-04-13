@@ -4,31 +4,31 @@
 package converter
 
 import (
-	"github.com/qwenode/convergen/tests/fixtures/usecase/embedded/domain"
-	"github.com/qwenode/convergen/tests/fixtures/usecase/embedded/model"
+    "github.com/qwenode/convergen/tests/fixtures/usecase/embedded/domain"
+    "github.com/qwenode/convergen/tests/fixtures/usecase/embedded/model"
 )
 
 func DomainToModel(s *domain.Concrete) (d *model.Concrete) {
-	d = &model.Concrete{}
-	d.Base.ID = s.Base.ID
-	d.Base.Created = s.Base.Created()
-	d.Name = s.Name
-	d.NestedData.Base.ID = s.NestedData.Base.ID
-	d.NestedData.Base.Created = s.NestedData.Base.Created()
-	d.NestedData.NestedDataSub.Base.ID = s.NestedData.NestedDataSub.Base.ID
-	d.NestedData.NestedDataSub.Base.Created = s.NestedData.NestedDataSub.Base.Created()
-	d.NestedData.NestedDataSub.ID = s.NestedData.NestedDataSub.ID
+    d = &model.Concrete{}
+    d.Base.ID = s.Base.ID
+    d.Base.Created = s.Base.Created()
+    d.Name = s.Name
+    d.NestedData.Base.ID = s.NestedData.Base.ID
+    d.NestedData.Base.Created = s.NestedData.Base.Created()
+    d.NestedData.NestedDataSub.Base.ID = s.NestedData.NestedDataSub.Base.ID
+    d.NestedData.NestedDataSub.Base.Created = s.NestedData.NestedDataSub.Base.Created()
+    d.NestedData.NestedDataSub.ID = s.NestedData.NestedDataSub.ID
 
-	return
+    return
 }
 
 func ModelToDomain(src *model.Concrete) (dst *domain.Concrete, err error) {
-	dst = &domain.Concrete{}
-	dst.Base.ID = src.Base.ID
-	dst.Name = src.Name
-	dst.NestedData.Base.ID = src.NestedData.Base.ID
-	dst.NestedData.NestedDataSub.Base.ID = src.NestedData.NestedDataSub.Base.ID
-	dst.NestedData.NestedDataSub.ID = src.NestedData.NestedDataSub.ID
+    dst = &domain.Concrete{}
+    dst.Base.ID = src.Base.ID
+    dst.Name = src.Name
+    dst.NestedData.Base.ID = src.NestedData.Base.ID
+    dst.NestedData.NestedDataSub.Base.ID = src.NestedData.NestedDataSub.Base.ID
+    dst.NestedData.NestedDataSub.ID = src.NestedData.NestedDataSub.ID
 
-	return
+    return
 }

@@ -11,8 +11,8 @@ import (
 const pre = `package simple
 
 import (
-	"github.com/qwenode/convergen/pkg/tests/fixtures/data/domain"
-	"github.com/qwenode/convergen/pkg/tests/fixtures/data/model"
+    "github.com/qwenode/convergen/pkg/tests/fixtures/data/domain"
+    "github.com/qwenode/convergen/pkg/tests/fixtures/data/model"
 )
 `
 
@@ -44,7 +44,7 @@ func TestGenerator_ArgRetReceiver(t *testing.T) {
 // comment 1
 // comment 2
 func ToModel(dst *model.Pet, src *domain.Pet) {
-	dst.ID = src.ID
+    dst.ID = src.ID
 }
 `,
 		},
@@ -63,10 +63,10 @@ func ToModel(dst *model.Pet, src *domain.Pet) {
 			},
 			expected: header + pre + `
 func ToModel(src *domain.Pet) (dst *model.Pet) {
-	dst = &model.Pet{}
-	dst.ID = src.ID
+    dst = &model.Pet{}
+    dst.ID = src.ID
 
-	return
+    return
 }
 `,
 		},
@@ -85,9 +85,9 @@ func ToModel(src *domain.Pet) (dst *model.Pet) {
 			},
 			expected: header + pre + `
 func ToModel(src *domain.Pet) (dst model.Pet) {
-	dst.ID = src.ID
+    dst.ID = src.ID
 
-	return
+    return
 }
 `,
 		},
@@ -106,9 +106,9 @@ func ToModel(src *domain.Pet) (dst model.Pet) {
 			},
 			expected: header + pre + `
 func (src *domain.Pet) ToModel() (dst model.Pet) {
-	dst.ID = src.ID
+    dst.ID = src.ID
 
-	return
+    return
 }
 `,
 		},
@@ -127,7 +127,7 @@ func (src *domain.Pet) ToModel() (dst model.Pet) {
 			},
 			expected: header + pre + `
 func (src *domain.Pet) ToModel(dst *model.Pet) {
-	dst.ID = src.ID
+    dst.ID = src.ID
 }
 `,
 		},
@@ -146,12 +146,12 @@ func (src *domain.Pet) ToModel(dst *model.Pet) {
 			},
 			expected: header + pre + `
 func (src *domain.Pet) ToModel(dst *model.Pet) (err error) {
-	dst.ID, err = src.ID()
-	if err != nil {
-		return
-	}
+    dst.ID, err = src.ID()
+    if err != nil {
+        return
+    }
 
-	return
+    return
 }
 `,
 		},
@@ -170,13 +170,13 @@ func (src *domain.Pet) ToModel(dst *model.Pet) (err error) {
 			},
 			expected: header + pre + `
 func (src *domain.Pet) ToModel() (dst *model.Pet, err error) {
-	dst = &model.Pet{}
-	dst.ID, err = src.ID()
-	if err != nil {
-		return nil, err
-	}
+    dst = &model.Pet{}
+    dst.ID, err = src.ID()
+    if err != nil {
+        return nil, err
+    }
 
-	return
+    return
 }
 `,
 		},
@@ -195,12 +195,12 @@ func (src *domain.Pet) ToModel() (dst *model.Pet, err error) {
 			},
 			expected: header + pre + `
 func (src *domain.Pet) ToModel() (dst model.Pet, err error) {
-	dst.ID, err = src.ID()
-	if err != nil {
-		return
-	}
+    dst.ID, err = src.ID()
+    if err != nil {
+        return
+    }
 
-	return
+    return
 }
 `,
 		},
@@ -218,9 +218,9 @@ func (src *domain.Pet) ToModel() (dst model.Pet, err error) {
 			},
 			expected: header + pre + `
 func ToModel(dst *model.Pet, src *domain.Pet) (err error) {
-	// skip: dst.ID
+    // skip: dst.ID
 
-	return
+    return
 }
 `,
 		},
@@ -238,10 +238,10 @@ func ToModel(dst *model.Pet, src *domain.Pet) (err error) {
 			},
 			expected: header + pre + `
 func ToModel(src *domain.Pet) (dst *model.Pet, err error) {
-	dst = &model.Pet{}
-	// no match: dst.ID
+    dst = &model.Pet{}
+    // no match: dst.ID
 
-	return
+    return
 }
 `,
 		},
@@ -273,9 +273,9 @@ func ToModel(src *domain.Pet) (dst *model.Pet, err error) {
 			},
 			expected: header + pre + `
 func ToModel(dst *model.Pet, src *domain.Pet) {
-	PreProcess(dst, src)
-	dst.ID = src.ID
-	domain.PostProcess(dst, src)
+    PreProcess(dst, src)
+    dst.ID = src.ID
+    domain.PostProcess(dst, src)
 }
 `,
 		},
@@ -297,12 +297,12 @@ func ToModel(dst *model.Pet, src *domain.Pet) {
 			},
 			expected: header + pre + `
 func ToModel(src domain.Pet) (dst model.Pet, err error) {
-	err = PostProcess(&dst, &src)
-	if err != nil {
-		return
-	}
+    err = PostProcess(&dst, &src)
+    if err != nil {
+        return
+    }
 
-	return
+    return
 }
 `,
 		},
@@ -324,13 +324,13 @@ func ToModel(src domain.Pet) (dst model.Pet, err error) {
 			},
 			expected: header + pre + `
 func ToModel(src *domain.Pet) (dst *model.Pet, err error) {
-	dst = &model.Pet{}
-	err = PostProcess(*dst, *src)
-	if err != nil {
-		return
-	}
+    dst = &model.Pet{}
+    err = PostProcess(*dst, *src)
+    if err != nil {
+        return
+    }
 
-	return
+    return
 }
 `,
 		},

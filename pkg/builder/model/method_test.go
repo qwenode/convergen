@@ -25,9 +25,9 @@ func loadSrc(t *testing.T, src string) (*ast.File, *token.FileSet, *types.Packag
 }
 
 // func getCodeText(t *testing.T, fset *token.FileSet, file *ast.File) string {
-//	buf := bytes.Buffer{}
-//	require.Nil(t, printer.Fprint(&buf, fset, file))
-//	return buf.String()
+//    buf := bytes.Buffer{}
+//    require.Nil(t, printer.Fprint(&buf, fset, file))
+//    return buf.String()
 // }
 
 func TestMethodEntry(t *testing.T) {
@@ -36,7 +36,7 @@ func TestMethodEntry(t *testing.T) {
 type MyType int
 
 func (m *MyType) Test1(a, b string) (int, error) {
-	return 0, nil
+    return 0, nil
 }
 
 func (m *MyType) Test2() {}
@@ -73,19 +73,19 @@ func main() {}`
 			t.Errorf("Method name is empty")
 		}
 		// if method.Recv() == nil {
-		//	t.Errorf("Receiver type is nil")
+		//    t.Errorf("Receiver type is nil")
 		// }
 		// if len(method.Args()) == 0 {
-		//	t.Errorf("Argument types are empty")
+		//    t.Errorf("Argument types are empty")
 		// }
 		// if len(method.Results()) == 0 {
-		//	t.Errorf("Result types are empty")
+		//    t.Errorf("Result types are empty")
 		// }
 		// if method.SrcVar() == nil {
-		//	t.Errorf("SrcVar is nil")
+		//    t.Errorf("SrcVar is nil")
 		// }
 		// if method.DstVar() == nil {
-		//	t.Errorf("DstVar is nil")
+		//    t.Errorf("DstVar is nil")
 		// }
 	}
 }

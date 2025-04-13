@@ -187,18 +187,20 @@ func FindMethod(t types.Type, name string, exactCase bool) (method *types.Func) 
 		name = strings.ToLower(name)
 	}
 
-	IterateMethods(t, func(m *types.Func) (done bool) {
-		found := false
-		if exactCase {
-			found = m.Name() == name
-		} else {
-			found = strings.ToLower(m.Name()) == name
-		}
-		if found {
-			method = m
-		}
-		return found
-	})
+	IterateMethods(
+		t, func(m *types.Func) (done bool) {
+			found := false
+			if exactCase {
+				found = m.Name() == name
+			} else {
+				found = strings.ToLower(m.Name()) == name
+			}
+			if found {
+				method = m
+			}
+			return found
+		},
+	)
 	return
 }
 
@@ -224,18 +226,20 @@ func FindField(t types.Type, name string, exactCase bool) (field *types.Var) {
 		name = strings.ToLower(name)
 	}
 
-	IterateFields(t, func(f *types.Var) (done bool) {
-		found := false
-		if exactCase {
-			found = f.Name() == name
-		} else {
-			found = strings.ToLower(f.Name()) == name
-		}
-		if found {
-			field = f
-		}
-		return found
-	})
+	IterateFields(
+		t, func(f *types.Var) (done bool) {
+			found := false
+			if exactCase {
+				found = f.Name() == name
+			} else {
+				found = strings.ToLower(f.Name()) == name
+			}
+			if found {
+				field = f
+			}
+			return found
+		},
+	)
 	return
 }
 

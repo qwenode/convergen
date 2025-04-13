@@ -31,8 +31,10 @@ func TestIdentMatcher(t *testing.T) {
 	for pattern, ttList := range cases {
 		for _, tt := range ttList {
 			m := NewIdentMatcher(pattern)
-			assert.Equal(t, tt.matches, m.Match(tt.ident, tt.exactCase),
-				`pattern "%v" against "%v" (case-sensitive=%v)`, pattern, tt.ident, tt.exactCase)
+			assert.Equal(
+				t, tt.matches, m.Match(tt.ident, tt.exactCase),
+				`pattern "%v" against "%v" (case-sensitive=%v)`, pattern, tt.ident, tt.exactCase,
+			)
 		}
 	}
 }

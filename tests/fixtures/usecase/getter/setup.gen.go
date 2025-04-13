@@ -4,32 +4,32 @@
 package getter
 
 import (
-	"github.com/qwenode/convergen/tests/fixtures/data/ddd/domain"
-	"github.com/qwenode/convergen/tests/fixtures/data/ddd/model"
+    "github.com/qwenode/convergen/tests/fixtures/data/ddd/domain"
+    "github.com/qwenode/convergen/tests/fixtures/data/ddd/model"
 )
 
 // DomainToModel copies domain.Pet to model.Pet.
 func DomainToModel(pet *domain.Pet) (dst *model.Pet) {
-	dst = &model.Pet{}
-	dst.ID = pet.ID()
-	// no match: dst.Category.CategoryID
-	dst.Category.Name = pet.Category().Name()
-	dst.Name = pet.Name()
-	// skip: dst.PhotoUrls
-	// no match: dst.Status
+    dst = &model.Pet{}
+    dst.ID = pet.ID()
+    // no match: dst.Category.CategoryID
+    dst.Category.Name = pet.Category().Name()
+    dst.Name = pet.Name()
+    // skip: dst.PhotoUrls
+    // no match: dst.Status
 
-	return
+    return
 }
 
 // DomainToModelNoGetter copies domain.Pet to model.Pet but not using getters.
 func DomainToModelNoGetter(pet *domain.Pet) (dst *model.Pet) {
-	dst = &model.Pet{}
-	dst.ID = pet.ID()
-	// no match: dst.Category.CategoryID
-	dst.Category.Name = pet.Category().Name()
-	dst.Name = pet.Name()
-	// no match: dst.PhotoUrls
-	// no match: dst.Status
+    dst = &model.Pet{}
+    dst.ID = pet.ID()
+    // no match: dst.Category.CategoryID
+    dst.Category.Name = pet.Category().Name()
+    dst.Name = pet.Name()
+    // no match: dst.PhotoUrls
+    // no match: dst.Status
 
-	return
+    return
 }

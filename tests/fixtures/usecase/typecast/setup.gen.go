@@ -4,9 +4,9 @@
 package typecast
 
 import (
-	"github.com/qwenode/convergen/tests/fixtures/usecase/typecast/domain"
-	"github.com/qwenode/convergen/tests/fixtures/usecase/typecast/enums"
-	"github.com/qwenode/convergen/tests/fixtures/usecase/typecast/model"
+    "github.com/qwenode/convergen/tests/fixtures/usecase/typecast/domain"
+    "github.com/qwenode/convergen/tests/fixtures/usecase/typecast/enums"
+    "github.com/qwenode/convergen/tests/fixtures/usecase/typecast/model"
 )
 
 // DomainToModel converts domain.User to model.User.
@@ -14,12 +14,12 @@ import (
 // - int64 -> int
 // - enums.Status -> string
 func DomainToModel(src *domain.User) (dst *model.User) {
-	dst = &model.User{}
-	dst.ID = int64(src.ID)
-	dst.Name = src.Name
-	dst.Status = string(src.Status)
+    dst = &model.User{}
+    dst.ID = int64(src.ID)
+    dst.Name = src.Name
+    dst.Status = string(src.Status)
 
-	return
+    return
 }
 
 // ModelToDomain converts model.User to domain.User.
@@ -28,10 +28,10 @@ func DomainToModel(src *domain.User) (dst *model.User) {
 //   - string -> enums.Status
 //     "enums" package will be imported automatically in the generated code!
 func ModelToDomain(src *model.User) (dst *domain.User) {
-	dst = &domain.User{}
-	dst.ID = int(src.ID)
-	dst.Name = src.Name
-	dst.Status = enums.Status(src.Status)
+    dst = &domain.User{}
+    dst.ID = int(src.ID)
+    dst.Name = src.Name
+    dst.Status = enums.Status(src.Status)
 
-	return
+    return
 }
