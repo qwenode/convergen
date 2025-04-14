@@ -9,6 +9,16 @@ func UserA_UserB(src data.UserA, arg0 int, arg1 data.UserA) (dst data.UserB) {
 	dst.Username = src.Username
 	dst.Age = arg0
 	dst.User = arg1
+	// skip: dst.Slice
+
+	return
+}
+
+func UserA_UserB2(src data.UserA, arg0 int, arg1 []data.UserA, arg2 data.UserA) (dst data.UserB) {
+	dst.Username = src.Username
+	dst.Age = arg0
+	dst.User = arg2
+	dst.Slice = arg1
 
 	return
 }

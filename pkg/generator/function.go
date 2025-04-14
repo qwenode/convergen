@@ -2,6 +2,8 @@ package generator
 
 import (
 	"fmt"
+	"log"
+	"regexp"
 	"strings"
 
 	"github.com/qwenode/convergen/pkg/generator/model"
@@ -56,10 +58,18 @@ func (g *Generator) FuncToString(f *model.Function) string {
 	}
 
 	for _, args := range f.AdditionalArgs {
+		log.Println(args)
+		fullType := ""
+		if strings.Contains(args.Type, "/") {
+			re := regexp.MustCompile(`^([^a-zA-Z]*)([a-zA-Z].*/)(.+)$`)
+			fullType = re.ReplaceAllString(args.FullType(), "$1$3")
+		} else {
+			fullType = args.FullType()
+		}
 		sb.WriteString(", ")
 		sb.WriteString(args.Name)
 		sb.WriteString(" ")
-		sb.WriteString(args.FullType())
+		sb.WriteString(fullType)
 	}
 
 	// "func Name(dst *DstModel, src *SrcModel)"
