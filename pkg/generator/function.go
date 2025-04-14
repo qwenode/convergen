@@ -2,7 +2,6 @@ package generator
 
 import (
 	"fmt"
-	"log"
 	"regexp"
 	"strings"
 
@@ -58,13 +57,10 @@ func (g *Generator) FuncToString(f *model.Function) string {
 	}
 
 	for _, args := range f.AdditionalArgs {
-		log.Println(args)
-		fullType := ""
+		fullType := args.FullType()
 		if strings.Contains(args.Type, "/") {
 			re := regexp.MustCompile(`^([^a-zA-Z]*)([a-zA-Z].*/)(.+)$`)
-			fullType = re.ReplaceAllString(args.FullType(), "$1$3")
-		} else {
-			fullType = args.FullType()
+			fullType = re.ReplaceAllString(fullType, "$1$3")
 		}
 		sb.WriteString(", ")
 		sb.WriteString(args.Name)
